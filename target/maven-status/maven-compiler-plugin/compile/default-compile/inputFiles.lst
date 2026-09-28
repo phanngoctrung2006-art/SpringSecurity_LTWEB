@@ -10,5 +10,8 @@ D:\JAVA\SpringBoot1-6\src\main\java\web\com\entity\User.java
 D:\JAVA\SpringBoot1-6\src\main\java\web\com\mapper\UserMapper.java
 D:\JAVA\SpringBoot1-6\src\main\java\web\com\repository\RoleRepository.java
 D:\JAVA\SpringBoot1-6\src\main\java\web\com\repository\UserRepository.java
+D:\JAVA\SpringBoot1-6\src\main\java\web\com\security\CustomUserDetails.java
 D:\JAVA\SpringBoot1-6\src\main\java\web\com\security\CustomUserDetailsService.java
+D:\JAVA\SpringBoot1-6\src\main\java\web\com\service\impl\UserServiceImpl.java
+D:\JAVA\SpringBoot1-6\src\main\java\web\com\service\UserService.java
 D:\JAVA\SpringBoot1-6\src\main\java\web\com\SpringBoot16Application.java

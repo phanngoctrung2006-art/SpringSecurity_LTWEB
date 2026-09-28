@@ -1,38 +1,69 @@
 package web.com.config;
-import org.springframework.beans.factory.annotation.Value; 
-import org.springframework.boot.CommandLineRunner; 
-import org.springframework.context.annotation.*; 
-import org.springframework.security.crypto.password.PasswordEncoder; 
-import web.com.entity.*; 
-import web.com.entity.Role; 
-import web.com.repository.*; 
-@Configuration 
-public class DataInitializer { 
-	
-    @Bean 
-    CommandLineRunner initData(RoleRepository roles, UserRepository users,  PasswordEncoder 
-encoder, 
-                                @Value("${ADMIN_EMAIL:phanngoctrung2006@gmail.com}") String 
-adminEmail, 
-                                @Value("${ADMIN_PASSWORD:123456}") String 
-adminPassword) { 
-        return args -> { 
-            Role userRole=roles.findByNameIgnoreCase("USER").orElseGet(() -> 
-roles.save(new Role("USER"))); 
-            Role adminRole=roles.findByNameIgnoreCase("ADMIN").orElseGet(() -> 
-roles.save(new Role("ADMIN"))); 
- 
-            if (!users.existsByEmailIgnoreCase(adminEmail)) { 
-                User admin=new User(); 
-                admin.setEmail(adminEmail.toLowerCase()); 
-                admin.setFullName("System Administrator"); 
-                admin.setPassword(encoder.encode(adminPassword)); 
-                admin.setRole(adminRole); 
-                admin.setEnabled(true); 
-                users.save(admin); 
-            } 
- 
-             
-        }; 
-    } 
-} 
+
+import org.springframework.boot.CommandLineRunner;
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
+import org.springframework.security.crypto.password.PasswordEncoder;
+import web.com.entity.Role;
+import web.com.entity.User;
+import web.com.repository.RoleRepository;
+import web.com.repository.UserRepository;
+
+@Configuration
+public class DataInitializer {
+
+    @Bean
+    CommandLineRunner init(
+        RoleRepository roleRepository,
+        UserRepository userRepository,
+        PasswordEncoder passwordEncoder
+    ) {
+        return args -> {
+            Role userRole = roleRepository
+                .findByName("ROLE_USER")
+                .orElseGet(() ->
+                    roleRepository.save(
+                        Role.builder()
+                            .name("ROLE_USER")
+                            .build()
+                    )
+                );
+
+            Role adminRole = roleRepository
+                .findByName("ROLE_ADMIN")
+                .orElseGet(() ->
+                    roleRepository.save(
+                        Role.builder()
+                            .name("ROLE_ADMIN")
+                            .build()
+                    )
+                );
+
+            if (userRepository.findByUsername("user01").isEmpty()) {
+                User user = User.builder()
+                    .username("user01")
+                    .email("user01@gmail.com")
+                    .password(passwordEncoder.encode("123456"))
+                    .fullName("Nguyễn Hữu Trung")
+                    .images("/images/user.png")
+                    .role(userRole)
+                    .enabled(true)
+                    .build();
+                userRepository.save(user);
+            }
+
+            if (userRepository.findByUsername("admin01").isEmpty()) {
+                User admin = User.builder()
+                    .username("admin01")
+                    .email("admin01@gmail.com")
+                    .password(passwordEncoder.encode("123456"))
+                    .fullName("Quản Trị Viên")
+                    .images("/images/user.png")
+                    .role(adminRole)
+                    .enabled(true)
+                    .build();
+                userRepository.save(admin);
+            }
+        };
+    }
+}

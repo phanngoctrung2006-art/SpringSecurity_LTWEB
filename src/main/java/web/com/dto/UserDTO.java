@@ -1,20 +1,18 @@
 package web.com.dto;
-import jakarta.validation.constraints.Email; 
-import jakarta.validation.constraints.NotBlank; 
-import jakarta.validation.constraints.NotNull;  
-import lombok.Data; 
-import java.time.LocalDateTime; 
-@Data 
-public class UserDTO { 
-private Long id; 
-@Email @NotBlank 
-private String email; 
-@NotBlank 
-private String fullName; 
-@NotNull 
-private Long roleId; 
-private String roleName; 
-private boolean enabled; 
-private long productCount; 
-private LocalDateTime createdAt; 
-} 
+
+import lombok.*;
+
+@Getter
+@Setter
+@NoArgsConstructor
+@AllArgsConstructor
+@Builder
+public class UserDTO {
+    private Long id;
+    private String username;
+    private String email;
+    private String fullName;
+    private String images;
+    private String roleName;
+    private boolean enabled;
+}

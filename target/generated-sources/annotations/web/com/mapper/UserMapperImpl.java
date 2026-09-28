@@ -8,57 +8,32 @@ import web.com.entity.User;
 
 @Generated(
     value = "org.mapstruct.ap.MappingProcessor",
-    date = "2026-09-28T10:17:42+0700",
+    date = "2026-09-28T10:31:46+0700",
     comments = "version: 1.6.3, compiler: javac, environment: Java 22 (Oracle Corporation)"
 )
 @Component
 public class UserMapperImpl implements UserMapper {
 
     @Override
-    public UserDTO toDto(User entity) {
-        if ( entity == null ) {
+    public UserDTO toDTO(User user) {
+        if ( user == null ) {
             return null;
         }
 
-        UserDTO userDTO = new UserDTO();
+        UserDTO.UserDTOBuilder userDTO = UserDTO.builder();
 
-        userDTO.setRoleId( entityRoleId( entity ) );
-        userDTO.setRoleName( entityRoleName( entity ) );
-        userDTO.setId( entity.getId() );
-        userDTO.setEmail( entity.getEmail() );
-        userDTO.setFullName( entity.getFullName() );
-        userDTO.setEnabled( entity.isEnabled() );
-        userDTO.setCreatedAt( entity.getCreatedAt() );
+        userDTO.roleName( userRoleName( user ) );
+        userDTO.id( user.getId() );
+        userDTO.username( user.getUsername() );
+        userDTO.email( user.getEmail() );
+        userDTO.fullName( user.getFullName() );
+        userDTO.images( user.getImages() );
+        userDTO.enabled( user.isEnabled() );
 
-        return userDTO;
+        return userDTO.build();
     }
 
-    @Override
-    public User toEntity(UserDTO dto) {
-        if ( dto == null ) {
-            return null;
-        }
-
-        User user = new User();
-
-        user.setId( dto.getId() );
-        user.setEmail( dto.getEmail() );
-        user.setFullName( dto.getFullName() );
-        user.setEnabled( dto.isEnabled() );
-        user.setCreatedAt( dto.getCreatedAt() );
-
-        return user;
-    }
-
-    private Long entityRoleId(User user) {
-        Role role = user.getRole();
-        if ( role == null ) {
-            return null;
-        }
-        return role.getId();
-    }
-
-    private String entityRoleName(User user) {
+    private String userRoleName(User user) {
         Role role = user.getRole();
         if ( role == null ) {
             return null;

@@ -1,41 +1,63 @@
-<!DOCTYPE html> 
-<html xmlns:th="http://www.thymeleaf.org" 
-      xmlns:sec="http://www.thymeleaf.org/extras/spring-security"> 
-
-<body> 
-
-<header th:fragment="header" class="topbar"> 
-    <div class="brand"> 
-        <a th:href="@{/}"> 
-            IOTSTAR SHOP 
-        </a> 
-    </div> 
-
-    <nav style="flex: 1;"></nav>
-
-    <div class="account" sec:authorize="isAuthenticated()"> 
-        <span sec:authentication="name"> 
-            user 
-        </span> 
-         
-        <form th:action="@{/logout}" 
-              method="post" 
-              style="display:inline"> 
-            <input type="hidden" 
-                   th:name="${_csrf.parameterName}" 
-                   th:value="${_csrf.token}"> 
-            <button class="link-button" 
-                    type="submit"> 
-                Đăng xuất 
-            </button> 
-        </form> 
-    </div> 
-
-    <div class="account" sec:authorize="!isAuthenticated()">
-        <a th:href="@{/login}" class="link-button" style="text-decoration: none;">
-            Đăng nhập
-        </a>
-    </div>
-</header> 
-</body> 
+<!DOCTYPE html>
+<html lang="vi"
+ xmlns:th="http://www.thymeleaf.org">
+<body>
+<header th:fragment="header" class="topbar">
+ <div class="brand">
+ <a th:href="@{/}">
+ UTEShop
+ </a>
+ </div>
+ <nav style="flex: 1;"></nav>
+ <div class="account" th:if="${#authorization.expression('isAuthenticated()')}">
+ <!-- Avatar -->
+ <img
+ th:src="${#authentication.principal.images != null
+ and !#strings.isEmpty(#authentication.principal.images)
+ ? #authentication.principal.images
+ : '/images/avatar-default.png'}"
+ alt="Avatar"
+ width="40"
+ height="40"
+ style="border-radius:50%; object-fit:cover; vertical-align: middle; margin-right: 8px;">
+ <!-- Full name -->
+ <span
+ th:text="${#authentication.principal.fullName}">
+ Nguyễn Văn A
+ </span>
+ <!-- Username -->
+ <span
+ th:text="'(' + ${#authentication.principal.username} + ')'">
+ (nguyenvana)
+ </span>
+ <!-- Email -->
+ <span
+ th:text="${#authentication.principal.email}" style="margin: 0 8px;">
+ email@gmail.com
+ </span>
+ <!-- Role -->
+ <span
+ th:text="${#authentication.principal.role}" style="margin-right: 12px; font-weight: bold;">
+ ROLE_USER
+ </span>
+ <!-- Logout -->
+ <form
+ th:action="@{/logout}"
+ method="post"
+ style="display:inline">
+ <input type="hidden"
+ th:name="${_csrf.parameterName}"
+ th:value="${_csrf.token}">
+ <button type="submit" class="link-button">
+ Đăng xuất
+ </button>
+ </form>
+ </div>
+ <div class="account" th:unless="${#authorization.expression('isAuthenticated()')}">
+ <a th:href="@{/login}" class="link-button" style="text-decoration: none;">
+ Đăng nhập
+ </a>
+ </div>
+</header>
+</body>
 </html>

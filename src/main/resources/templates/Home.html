@@ -1,13 +1,27 @@
-<!DOCTYPE html> 
-<html lang="vi" xmlns:th="http://www.thymeleaf.org"> 
-<head th:replace="~{layouts/layout :: head('Trang chủ')}"></head>
-<body> 
-<header th:replace="~{fragments/header :: header}"></header> 
-<main class="container"> 
-    <div class="panel">
-        <h1>Home</h1>
-        <p>Chào mừng bạn đến với IOTSTAR SHOP!</p>
-    </div>
-</main> 
-</body> 
-</html> 
+<!DOCTYPE html>
+<html lang="vi"
+ xmlns:th="http://www.thymeleaf.org"
+ xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+ layout:decorate="~{layouts/layout}">
+<head>
+ <title>Trang chủ</title>
+</head>
+<body>
+<main layout:fragment="content">
+ <div class="container">
+  <div class="panel">
+   <h1>
+    Trang chủ UTEShop
+   </h1>
+   <p>
+    Xin chào
+    <strong
+     th:text="${#authentication.principal.fullName}">
+     User
+    </strong>
+   </p>
+  </div>
+ </div>
+</main>
+</body>
+</html>
