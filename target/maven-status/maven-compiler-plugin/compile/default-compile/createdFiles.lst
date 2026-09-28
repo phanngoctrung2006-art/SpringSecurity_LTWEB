@@ -1,0 +1,15 @@
+web\com\security\CustomUserDetailsService.class
+web\com\config\EncodingConfig.class
+web\com\entity\Role.class
+web\com\repository\RoleRepository.class
+web\com\config\SecurityConfig.class
+web\com\entity\User.class
+web\com\mapper\UserMapperImpl.class
+web\com\dto\UserDTO.class
+web\com\mapper\UserMapper.class
+web\com\controller\HomeController.class
+web\com\controller\AuthController.class
+web\com\config\DataInitializer.class
+web\com\dto\LoginDTO.class
+web\com\repository\UserRepository.class
+web\com\SpringBoot16Application.class
